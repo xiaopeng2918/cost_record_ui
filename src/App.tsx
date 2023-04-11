@@ -1,6 +1,5 @@
 import { RouterProvider, Router } from 'react-router-dom'
 import routes from './router/index'
-import NavBar from '@/components/NavBar/index'
 
 import { ConfigProvider } from 'zarm'
 function App() {

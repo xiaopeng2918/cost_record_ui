@@ -24,7 +24,7 @@ function NavBar() {
   return (
     <>
       <Outlet />
-      <TabBar visible={false} activeKey={activeKey} onChange={changeTab} className={s.tabbar}>
+      <TabBar activeKey={activeKey} onChange={changeTab} className={`${s.tabbar} ${showNav ? '' : s.hide_tabbar}`}>
         <TabBar.Item itemKey="/" title="账单" icon={<CustomIcon type="zhangdan" />} />
         <TabBar.Item itemKey="/data" title="数据" icon={<CustomIcon type="tongji" />} />
         <TabBar.Item itemKey="/user" title="我的" icon={<CustomIcon type="wode" />} />
