@@ -1,15 +1,16 @@
-import { RouterProvider } from 'react-router-dom'
+import { RouterProvider, Router } from 'react-router-dom'
 import routes from './router/index'
+import NavBar from '@/components/NavBar/index'
 
 import { ConfigProvider } from 'zarm'
 function App() {
   return (
-    <>
       <ConfigProvider primaryColor={'#007fff'}>
-        <RouterProvider router={routes}></RouterProvider>
+        <>
+          <RouterProvider router={routes}></RouterProvider>
+        </>
       </ConfigProvider>
-    </>
   )
-}
+}     
 
 export default App
