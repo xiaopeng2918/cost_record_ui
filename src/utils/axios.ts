@@ -24,6 +24,7 @@ axios.interceptors.response.use((res) => {
     }
     return Promise.reject(res.data)
   }
+  Toast.show(res.data.msg)
   return res.data
 })
 

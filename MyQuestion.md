@@ -10,3 +10,15 @@
 
 解决：最后用less的 嵌套语法 纯用标签添加的自定义属性
 卡我很久 这个要扒控制台标签嵌套😪
+
+## 使用module.less解决无法设置Zarm组件类名样式的问题
+组件库 Zarm 内的 dom 类名还是叫 za-list。所以为了不加 hash，就需要这样操作 使用global::
+```css
+.form {
+  :global {
+    .za-list {
+      color: red;
+    }
+  }
+}
+```

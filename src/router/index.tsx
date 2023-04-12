@@ -4,6 +4,7 @@ import User from '@/container/User'
 import Data from '@/container/Data'
 import NavBar from '@/components/NavBar'
 import Detail from '@/container/Detail'
+import Login from '@/container/Login'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -26,6 +27,10 @@ const routes = createBrowserRouter([
         element: <Detail />
       }
     ]
+  },
+  {
+    path: '/login',
+    element: <Login />
   }
 ])
 

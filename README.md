@@ -170,6 +170,13 @@ server: {
 12.别名配置
 `vite.config.ts`与`tsconfig.json`都进行配置下
 
+13.验证码组件
+```
+npm i react-captcha-code -S --force
+```
+加上--force忽略包不兼容问题
+14.classnames的使用
+
 ## 参考
 
 [阿里巴巴矢量库](https://www.iconfont.cn/) 网页 logo
