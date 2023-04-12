@@ -176,7 +176,7 @@ npm i react-captcha-code -S --force
 ```
 加上--force忽略包不兼容问题
 14.classnames的使用
-
+一个便捷绑定样式的第三方库
 ## 参考
 
 [阿里巴巴矢量库](https://www.iconfont.cn/) 网页 logo

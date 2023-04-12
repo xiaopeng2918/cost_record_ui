@@ -1,6 +1,6 @@
 import s from './style.module.less'
 import { List, Input, Button, Checkbox, Toast } from 'zarm'
-import CustomIcon from '@/components/CustomIcon'
+import {IconOrigin} from '@/components/CustomIcon'
 import Captcha from 'react-captcha-code'
 import { useCallback } from 'react'
 import { useState } from 'react'
@@ -71,7 +71,7 @@ function Login() {
       </div>
       <div className={s.form}>
         <List>
-          <List.Item prefix={<CustomIcon type="zhanghao" />}>
+          <List.Item prefix={<IconOrigin type="zhanghao" />}>
             <Input
               clearable
               type="text"
@@ -79,7 +79,7 @@ function Login() {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value as string)}
             />
           </List.Item>
-          <List.Item prefix={<CustomIcon type="mima" />}>
+          <List.Item prefix={<IconOrigin type="mima" />}>
             <Input
               clearable
               type="password"
@@ -89,7 +89,7 @@ function Login() {
           </List.Item>
 
           {type == 'register' && (
-            <List.Item prefix={<CustomIcon type="mima" />}>
+            <List.Item prefix={<IconOrigin type="mima" />}>
               <Input
                 clearable
                 type="text"

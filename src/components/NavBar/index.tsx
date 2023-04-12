@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, Outlet, useLocation } from 'react-router-dom'
 import { TabBar } from 'zarm'
 import s from './style.module.less'
-import CustomIcon from '../CustomIcon'
+import {IconOrigin} from '../CustomIcon'
 
 function NavBar() {
   const [activeKey, setActiveKey] = useState('/')
@@ -25,9 +25,9 @@ function NavBar() {
     <>
       <Outlet />
       <TabBar activeKey={activeKey} onChange={changeTab} className={`${s.tabbar} ${showNav ? '' : s.hide_tabbar}`}>
-        <TabBar.Item itemKey="/" title="账单" icon={<CustomIcon type="zhangdan" />} />
-        <TabBar.Item itemKey="/data" title="数据" icon={<CustomIcon type="tongji" />} />
-        <TabBar.Item itemKey="/user" title="我的" icon={<CustomIcon type="wode" />} />
+        <TabBar.Item itemKey="/" title="账单" icon={<IconOrigin type="zhangdan" />} />
+        <TabBar.Item itemKey="/data" title="数据" icon={<IconOrigin type="tongji" />} />
+        <TabBar.Item itemKey="/user" title="我的" icon={<IconOrigin type="wode" />} />
       </TabBar>
     </>
   )
