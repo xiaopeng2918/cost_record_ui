@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, Ref} from 'react'
 import s from './style.module.less'
 import BillItem from '@/components/BillItem'
-import { ListBillType,MonthlyBillType } from '@/typings/global'
+import { ListBillType, TypeType } from '@/typings/global'
 import { MyIcon } from '@/components/CustomIcon'
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 import { LOAD_STATE, REFRESH_STATE } from '@/utils'
 import { get } from '@/utils'
 import { Pull } from 'zarm'
+import PopupType from '@/components/PopupType'
+
+type PopupTypeRef = {
+  show: () => void
+  close: () => void
+}
 function Home() {
+  const typeRef = useRef<PopupTypeRef>()
+  const [currentSelect, setCurrentSelect] = useState<TypeType>({id: ''})
   const [list, setList] = useState<ListBillType>([
     {
       bills: [
@@ -26,19 +34,19 @@ function Home() {
   ]) // 账单列表
   const [page, setPage] = useState(1) // 分页
   const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM')) // 当前筛选时间
-  const [totalPage, setTotalPage] = useState(0)// 分页总数
+  const [totalPage, setTotalPage] = useState(0) // 分页总数
   const [refreshing, setRefreshing] = useState(REFRESH_STATE.normal) // 下拉刷新状态
   const [loading, setLoading] = useState(LOAD_STATE.normal) // 上拉加载状态
 
   useEffect(() => {
     getBillList()
-  },[page])
+  }, [page,currentSelect])
 
-  async function getBillList(){
-    const {data} = await get(`/bill/list?page=${page}&page_size=5&date=${currentTime}`)
-    if(page == 1){
+  async function getBillList() {
+    const { data } = await get(`/bill/list?page=${page}&page_size=5&date=${currentTime}&type_id=${currentSelect.id}`)
+    if (page == 1) {
       setList(data.list)
-    }else{
+    } else {
       setList(list.concat(data.list))
     }
 
@@ -49,17 +57,29 @@ function Home() {
   // 获取数据
   const refreshData = () => {
     setRefreshing(REFRESH_STATE.loading)
-    if(page != 1){
+    if (page != 1) {
       setPage(1)
-    }else {
+    } else {
       getBillList()
     }
   }
   const loadData = () => {
-    if(page < totalPage){
+    if (page < totalPage) {
       setLoading(LOAD_STATE.loading)
       setPage(page + 1)
     }
+  }
+
+  // 添加账单弹窗
+  const toggle = () => {
+    typeRef.current && typeRef.current.show()
+  }
+  // 筛选类型
+  const select = (item:TypeType) => {
+    setRefreshing(REFRESH_STATE.loading)
+    // 触发刷新列表, 分页重置为1
+    setPage(1)
+    setCurrentSelect(item)
   }
   return (
     <>
@@ -74,9 +94,9 @@ function Home() {
             </span>
           </div>
           <div className={s.typeWrap}>
-            <div className={s.left}>
+            <div className={s.left} onClick={toggle}>
               <span className={s.title}>
-                类型 <MyIcon className={s.arrow} type="icon-arrow-down" />
+                {currentSelect.name || '类型'} <MyIcon className={s.arrow} type="icon-arrow-down" />
               </span>
             </div>
             <div className={s.right}>
@@ -101,6 +121,7 @@ function Home() {
             </Pull>
           ) : null}
         </div>
+        <PopupType ref={typeRef} onSelect={select} />
       </div>
     </>
   )

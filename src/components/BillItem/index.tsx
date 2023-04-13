@@ -5,7 +5,7 @@ import { List } from 'zarm'
 import s from './style.module.less'
 import { typeMap } from '@/utils'
 import dayjs from 'dayjs'
-import { MonthlyBillType, BillDetail } from '@/typings/global'
+import { MonthlyBillType, BillType } from '@/typings/global'
 import PropTypes from 'prop-types'
 
 function BillItem(bill: MonthlyBillType) {
@@ -30,7 +30,7 @@ function BillItem(bill: MonthlyBillType) {
     setExpense(_expense)
   }, [bill.bills])
 
-  function goToDetail(item: BillDetail) {
+  function goToDetail(item: BillType) {
     navigateTo(`/detail?id=${item.id}`)
   }
   return (
