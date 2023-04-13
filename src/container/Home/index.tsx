@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, Ref} from 'react'
+import { useEffect, useState, useRef, Ref } from 'react'
 import s from './style.module.less'
 import BillItem from '@/components/BillItem'
 import { ListBillType, TypeType } from '@/typings/global'
@@ -8,14 +8,17 @@ import { LOAD_STATE, REFRESH_STATE } from '@/utils'
 import { get } from '@/utils'
 import { Pull } from 'zarm'
 import PopupType from '@/components/PopupType'
+import PopupDate from '@/components/PopupDate'
 
 type PopupTypeRef = {
   show: () => void
   close: () => void
 }
+type PopupDateRef = PopupTypeRef
 function Home() {
   const typeRef = useRef<PopupTypeRef>()
-  const [currentSelect, setCurrentSelect] = useState<TypeType>({id: ''})
+  const monthRef = useRef<PopupDateRef>() // 月份筛选 ref
+  const [currentSelect, setCurrentSelect] = useState<TypeType>({ id: '' })
   const [list, setList] = useState<ListBillType>([
     {
       bills: [
@@ -37,22 +40,30 @@ function Home() {
   const [totalPage, setTotalPage] = useState(0) // 分页总数
   const [refreshing, setRefreshing] = useState(REFRESH_STATE.normal) // 下拉刷新状态
   const [loading, setLoading] = useState(LOAD_STATE.normal) // 上拉加载状态
+  // 总收入，总支出
+  const [totalExpense, setTotalExpense] = useState(0) // 支出
+  const [totalIncome, setTotalIncome] = useState(0) // 收入
 
   useEffect(() => {
     getBillList()
-  }, [page,currentSelect])
+  }, [page, currentSelect, currentTime])
 
   async function getBillList() {
-    const { data } = await get(`/bill/list?page=${page}&page_size=5&date=${currentTime}&type_id=${currentSelect.id}`)
+    const { data } = await get(
+      `/bill/list?page=${page}&page_size=5&date=${currentTime}&type_id=${currentSelect.id || 'all'} `
+    )
     if (page == 1) {
       setList(data.list)
     } else {
       setList(list.concat(data.list))
     }
-
+    //收入支出
+    setTotalIncome(data.totalIncome.toFixed(2))
+    setTotalExpense(data.totalExpense.toFixed(2))
     setTotalPage(data.totalPage)
+
+    // setRefreshing(REFRESH_STATE.success)
     setLoading(LOAD_STATE.success)
-    setRefreshing(REFRESH_STATE.success)
   }
   // 获取数据
   const refreshData = () => {
@@ -75,11 +86,22 @@ function Home() {
     typeRef.current && typeRef.current.show()
   }
   // 筛选类型
-  const select = (item:TypeType) => {
+  const select = (item: TypeType) => {
     setRefreshing(REFRESH_STATE.loading)
     // 触发刷新列表, 分页重置为1
     setPage(1)
     setCurrentSelect(item)
+  }
+
+  // 选择月份的弹窗
+  const monthToggle = () => {
+    monthRef.current && monthRef.current.show()
+  }
+  // 筛选月份
+  const selectMonth = (item: string) => {
+    setRefreshing(REFRESH_STATE.loading)
+    setPage(1)
+    setCurrentTime(item)
   }
   return (
     <>
@@ -87,10 +109,10 @@ function Home() {
         <div className={s.header}>
           <div className={s.dataWrap}>
             <span className={s.expense}>
-              总支出：<b>¥ 200</b>
+              总支出：<b>¥ {totalExpense}</b>
             </span>
             <span className={s.income}>
-              总收入：<b>¥ 500</b>
+              总收入：<b>¥ {totalIncome}</b>
             </span>
           </div>
           <div className={s.typeWrap}>
@@ -100,8 +122,8 @@ function Home() {
               </span>
             </div>
             <div className={s.right}>
-              <span className={s.time}>
-                2022-06
+              <span className={s.time} onClick={monthToggle}>
+                {currentTime}
                 <MyIcon className={s.arrow} type="icon-arrow-down" />
               </span>
             </div>
@@ -109,7 +131,7 @@ function Home() {
         </div>
         <div className={s.contentWrap}>
           {list.length ? (
-            <Pull
+          <Pull
               animationDuration={200}
               stayTime={400}
               refresh={{ state: refreshing, handler: refreshData }}
@@ -122,6 +144,7 @@ function Home() {
           ) : null}
         </div>
         <PopupType ref={typeRef} onSelect={select} />
+        <PopupDate columnType={['year', 'month']} ref={monthRef} onSelect={selectMonth} />
       </div>
     </>
   )
