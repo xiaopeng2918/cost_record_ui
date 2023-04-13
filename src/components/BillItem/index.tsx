@@ -7,10 +7,10 @@ import { typeMap } from '@/utils'
 import dayjs from 'dayjs'
 import { MonthlyBillType, BillDetail } from '@/typings/global'
 import PropTypes from 'prop-types'
-import cl from 'classnames';
+
 function BillItem(bill: MonthlyBillType) {
-  const [income, setIncome] = useState(0)
-  const [expense, setExpense] = useState(0)
+  const [income, setIncome] = useState(0) // 记录收入
+  const [expense, setExpense] = useState(0)// 支出
   const navigateTo = useNavigate()
 
   useEffect(() => {
