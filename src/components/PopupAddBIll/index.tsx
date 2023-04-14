@@ -8,10 +8,13 @@ import dayjs from 'dayjs'
 import { PopupDateRef } from '@/typings/global'
 import { IconOrigin, MyIcon } from '../CustomIcon'
 import { typeMap, get, post } from '../../utils/index'
-import { TypeType } from '@/typings/global'
+import { TypeType, BillType } from '@/typings/global'
 import { Input } from 'zarm'
 type Props = {
   onReload: () => void
+
+  // 编辑账单需要接受这个数据
+  detail?: BillType
 }
 const PopupAddBill = forwardRef((props: Props, ref) => {
   const [show, setShow] = useState(false) // 内部控制弹窗显示隐藏。
@@ -36,9 +39,9 @@ const PopupAddBill = forwardRef((props: Props, ref) => {
   // 获取类型
   useEffect(() => {
     getTypeList()
-  }, [])
+  }, [props.detail])
 
-  // 获取列表类型
+  // 获取列表类型 如果是detail界面编辑  则把数据也渲染出来
   const getTypeList = async () => {
     const {
       data: { list }
@@ -48,6 +51,16 @@ const PopupAddBill = forwardRef((props: Props, ref) => {
     setExpenseType(_expense)
     setIncomeType(_income)
     setCurrentType(_expense[0]) // 新建账单，类型默认是支出类型数组的第一项
+    if (props.detail?.id) {
+      setPayType(props.detail?.pay_type == 1 ? 'expense' : 'income')
+      setCurrentType({
+        id: props.detail?.type_id,
+        name: props.detail?.type_name
+      })
+      setRemark(props.detail?.remark)
+      setAmount(props.detail?.amount)
+      setDate(dayjs(Number(props.detail?.date)).format('MM-DD'))
+    }
   }
   useImperativeHandle(ref, () => {
     return {
@@ -93,15 +106,23 @@ const PopupAddBill = forwardRef((props: Props, ref) => {
       pay_type: payType == 'expense' ? 1 : 2,
       remark: remark || ''
     }
-
-    const result = await post('/bill/add', params)
-    // 重制数据
-    setAmount('')
-    setPayType('expense')
-    setCurrentType(expenseType[0])
-    setDate(new Date().toString())
-    setRemark('')
-    Toast.show('添加成功')
+    if (props.detail?.id) {
+      let id = props.detail?.id
+      // param中date转化为字符串
+      params.date = dayjs(Number(props.detail?.date)).valueOf()
+      // 如果有 id 需要调用详情更新接口
+      const result = await post('/bill/update', { ...params, id })
+      Toast.show('修改成功')
+    } else {
+      const result = await post('/bill/add', params)
+      // 重制数据
+      setAmount('')
+      setPayType('expense')
+      setCurrentType(expenseType[0])
+      setDate(new Date().toString())
+      setRemark('')
+      Toast.show('添加成功')
+    }
     setShow(false)
     if (props.onReload) props.onReload()
   }

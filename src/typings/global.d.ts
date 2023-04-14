@@ -10,6 +10,7 @@ type BillType = {
   remark: string
   type_id: number
   type_name: string
+  user_id: number
 }
 // 每天的bill声明
 export interface MonthlyBillType {
@@ -42,3 +43,5 @@ type PopupTypeRef = {
 }
 type PopupDateRef = PopupTypeRef
 type PopupAddRef = PopupTypeRef
+type PopupEditRef = PopupTypeRef
+
