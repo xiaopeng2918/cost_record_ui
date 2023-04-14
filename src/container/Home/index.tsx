@@ -49,6 +49,7 @@ function Home() {
   }, [page, currentSelect, currentTime])
 
   async function getBillList() {
+    setRefreshing(REFRESH_STATE.loading)
     const { data } = await get(
       `/bill/list?page=${page}&page_size=5&date=${currentTime}&type_id=${currentSelect.id || 'all'} `
     )
@@ -62,17 +63,15 @@ function Home() {
     setTotalExpense(data.totalExpense.toFixed(2))
     setTotalPage(data.totalPage)
 
-    // setRefreshing(REFRESH_STATE.success)
     setLoading(LOAD_STATE.success)
+    setTimeout(() => {
+      setRefreshing(REFRESH_STATE.success)
+    }, 0)
   }
   // 获取数据
   const refreshData = () => {
     setRefreshing(REFRESH_STATE.loading)
-    if (page != 1) {
-      setPage(1)
-    } else {
-      getBillList()
-    }
+    getBillList()
   }
   const loadData = () => {
     if (page < totalPage) {
@@ -88,8 +87,10 @@ function Home() {
   // 筛选类型
   const select = (item: TypeType) => {
     setRefreshing(REFRESH_STATE.loading)
+    if (page != 1) {
+      setPage(1)
+    }
     // 触发刷新列表, 分页重置为1
-    setPage(1)
     setCurrentSelect(item)
   }
 
@@ -131,9 +132,9 @@ function Home() {
         </div>
         <div className={s.contentWrap}>
           {list.length ? (
-          <Pull
-              animationDuration={200}
-              stayTime={400}
+            <Pull
+              animationDuration={400}
+              stayTime={1000}
               refresh={{ state: refreshing, handler: refreshData }}
               load={{ state: loading, distance: 200, handler: loadData }}
             >
