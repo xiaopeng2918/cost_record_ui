@@ -13,10 +13,10 @@ const PopupDate = forwardRef((props: Props, ref) => {
   const choseMonth = (item: Date) => {
     setNow(item)
     setShow(false)
-    if (columnType.includes('month')) {
-      onSelect(dayjs(item).format('YYYY-MM'))
-    } else if (columnType.includes('day')) {
+    if (columnType.includes('day')) {
       onSelect(dayjs(item).format('YYYY-MM-DD'))
+    } else if (columnType.includes('month')) {
+      onSelect(dayjs(item).format('YYYY-MM'))
     }
   }
 

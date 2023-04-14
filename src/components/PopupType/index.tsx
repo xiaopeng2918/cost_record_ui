@@ -1,5 +1,5 @@
 // PopupType/index.jsx
-import { forwardRef, useEffect, useState, Ref, useImperativeHandle } from 'react'
+import { forwardRef, useEffect, useState, useImperativeHandle } from 'react'
 import { Popup, Icon } from 'zarm'
 import cx from 'classnames'
 import { get } from '@/utils'

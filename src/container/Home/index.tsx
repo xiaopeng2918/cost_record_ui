@@ -6,16 +6,16 @@ import { MyIcon } from '@/components/CustomIcon'
 import dayjs from 'dayjs'
 import { LOAD_STATE, REFRESH_STATE } from '@/utils'
 import { get } from '@/utils'
-import { Pull } from 'zarm'
+import { Pull } from 'zarm';
 import PopupType from '@/components/PopupType'
 import PopupDate from '@/components/PopupDate'
+import { IconOrigin } from '@/components/CustomIcon'
+import PopupAddBill from '@/components/PopupAddBIll'
+import { PopupAddRef, PopupDateRef, PopupTypeRef } from '@/typings/global'
 
-type PopupTypeRef = {
-  show: () => void
-  close: () => void
-}
-type PopupDateRef = PopupTypeRef
+
 function Home() {
+  const addRef = useRef<PopupAddRef>()
   const typeRef = useRef<PopupTypeRef>()
   const monthRef = useRef<PopupDateRef>() // 月份筛选 ref
   const [currentSelect, setCurrentSelect] = useState<TypeType>({ id: '' })
@@ -80,7 +80,7 @@ function Home() {
     }
   }
 
-  // 添加账单弹窗
+  // 类型弹窗
   const toggle = () => {
     typeRef.current && typeRef.current.show()
   }
@@ -97,6 +97,10 @@ function Home() {
   // 选择月份的弹窗
   const monthToggle = () => {
     monthRef.current && monthRef.current.show()
+  }
+  // 添加弹窗
+  const addToggle = () => {
+    addRef.current && addRef.current.show()
   }
   // 筛选月份
   const selectMonth = (item: string) => {
@@ -146,6 +150,10 @@ function Home() {
         </div>
         <PopupType ref={typeRef} onSelect={select} />
         <PopupDate columnType={['year', 'month']} ref={monthRef} onSelect={selectMonth} />
+        <PopupAddBill ref={addRef} onReload={refreshData}/>
+        <div className={s.add} onClick={addToggle}>
+          <IconOrigin type="tianjia" />
+        </div>
       </div>
     </>
   )

@@ -27,10 +27,18 @@ export type TypeMap = {
 
 // 单个type标签
 export type TypeType  = {
-  id: string // 兼容'all'
+  id: string | number // string兼容'all'
   name?: string
   type?: number
   user_id?: number
 }
 // type arr
 export type TypeArr = Array<TypeType>
+
+// 控制 几个弹出框  ref所具有的方法
+type PopupTypeRef = {
+  show: () => void
+  close: () => void
+}
+type PopupDateRef = PopupTypeRef
+type PopupAddRef = PopupTypeRef
