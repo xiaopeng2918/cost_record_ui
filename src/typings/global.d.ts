@@ -45,3 +45,10 @@ type PopupDateRef = PopupTypeRef
 type PopupAddRef = PopupTypeRef
 type PopupEditRef = PopupTypeRef
 
+// data结构
+export type PerTypeData = {
+  type_id: number
+  type_name: string
+  pay_type: number
+  number: number
+}

@@ -19,22 +19,7 @@ function Home() {
   const typeRef = useRef<PopupTypeRef>()
   const monthRef = useRef<PopupDateRef>() // 月份筛选 ref
   const [currentSelect, setCurrentSelect] = useState<TypeType>({ id: '' })
-  const [list, setList] = useState<ListBillType>([
-    {
-      bills: [
-        {
-          amount: '25.00',
-          date: '1623390740000',
-          id: 911,
-          pay_type: 1,
-          remark: '',
-          type_id: 1,
-          type_name: '餐饮'
-        }
-      ],
-      date: '2021-06-11'
-    }
-  ]) // 账单列表
+  const [list, setList] = useState<ListBillType>([]) // 账单列表
   const [page, setPage] = useState(1) // 分页
   const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM')) // 当前筛选时间
   const [totalPage, setTotalPage] = useState(0) // 分页总数

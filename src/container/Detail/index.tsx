@@ -19,7 +19,6 @@ const Detail = () => {
   const [detail, setDetail] = useState<BillType>() // 订单详情数据
   const editRef = useRef<PopupEditRef>()
 
-
   useEffect(() => {
     getDetail()
   }, [])
@@ -60,7 +59,7 @@ const Detail = () => {
         <div className={s.info}>
           <div className={s.time}>
             <span>记录时间</span>
-            <span>{dayjs(Number(detail?.date)).format('YYYY-MM-DD HH:mm')}</span>
+            <span>{dayjs(dayjs((dayjs(detail?.date) as any).$d).valueOf()).format('YYYY-MM-DD HH:mm')}</span>
           </div>
           <div className={s.remark}>
             <span>备注</span>

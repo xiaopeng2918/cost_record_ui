@@ -59,7 +59,7 @@ const PopupAddBill = forwardRef((props: Props, ref) => {
       })
       setRemark(props.detail?.remark)
       setAmount(props.detail?.amount)
-      setDate(dayjs(Number(props.detail?.date)).format('MM-DD'))
+      setDate((dayjs(props.detail?.date) as any).$d)
     }
   }
   useImperativeHandle(ref, () => {
@@ -102,14 +102,12 @@ const PopupAddBill = forwardRef((props: Props, ref) => {
       amount: Number(amount).toFixed(2),
       type_id: currentType?.id,
       type_name: currentType?.name,
-      date: dayjs(date).unix() * 1000,
+      date: dayjs(date).format('YYYY-MM-DD HH:mm:ss'),
       pay_type: payType == 'expense' ? 1 : 2,
       remark: remark || ''
     }
     if (props.detail?.id) {
       let id = props.detail?.id
-      // param中date转化为字符串
-      params.date = dayjs(Number(props.detail?.date)).valueOf()
       // 如果有 id 需要调用详情更新接口
       const result = await post('/bill/update', { ...params, id })
       Toast.show('修改成功')

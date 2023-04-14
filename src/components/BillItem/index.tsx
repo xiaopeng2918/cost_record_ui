@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 
 function BillItem(bill: MonthlyBillType) {
   const [income, setIncome] = useState(0) // 记录收入
-  const [expense, setExpense] = useState(0)// 支出
+  const [expense, setExpense] = useState(0) // 支出
   const navigateTo = useNavigate()
 
   useEffect(() => {
@@ -65,8 +65,9 @@ function BillItem(bill: MonthlyBillType) {
                   </>
                 }
                 description={
-                  <div style={{color: '#000'}}>
-                    {dayjs(Number(item.date)).format('HH:mm')} {item.remark ? `| ${item.remark}` : ''}
+                  <div style={{ color: '#000' }}>
+                    {dayjs(dayjs((dayjs(item.date) as any).$d).valueOf()).format('HH:mm')}{' '}
+                    {item.remark ? `| ${item.remark}` : ''}
                   </div>
                 }
               >
