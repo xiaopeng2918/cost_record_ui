@@ -5,6 +5,7 @@ import Data from '@/container/Data'
 import NavBar from '@/components/NavBar'
 import Detail from '@/container/Detail'
 import Login from '@/container/Login'
+import UserInfo from '@/container/UserInfo'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -31,6 +32,10 @@ const routes = createBrowserRouter([
   {
     path: '/login',
     element: <Login />
+  },
+  {
+    path: '/userinfo',
+    element: <UserInfo />
   }
 ])
 

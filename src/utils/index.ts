@@ -1,11 +1,13 @@
+import { baseUrl } from '@/config'
 import axios from './axios'
 import { TypeMap } from '@/typings/global'
+const MODE = import.meta.env.MODE
+
 export const get = axios.get
 
 export const post = axios.post
-
 // 消费类别标签类型
-export const typeMap:TypeMap = {
+export const typeMap: TypeMap = {
   1: {
     icon: 'canyin'
   },
@@ -72,4 +74,14 @@ export const LOAD_STATE = {
   success: 3, // 加载成功
   failure: 4, // 加载失败
   complete: 5 // 加载完成（无新数据）
+}
+
+// 图面路径处理
+export const imgUrltrans = (url: string) => {
+  if (url && url.startsWith('http')) {
+    return url
+  } else {
+    url = `${MODE == 'development' ? 'http:\\\\127.0.0.1:7001' : baseUrl}${url}`
+    return url
+  }
 }

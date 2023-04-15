@@ -19,6 +19,7 @@ function NavBar() {
   const [showNav, setShowNav] = useState(false)
   useEffect(() => {
     setShowNav(needNav.includes(pathname))
+    setActiveKey(location.pathname)
   }, [pathname])
 
   return (

@@ -17,7 +17,7 @@ export interface MonthlyBillType {
   bills: BillType[]
   date: string
 }
-// 数据返回形式 
+// 数据返回形式
 export type ListBillType = Array<MonthlyBillType>
 // 图标数据结构
 export type TypeMap = {
@@ -27,7 +27,7 @@ export type TypeMap = {
 }
 
 // 单个type标签
-export type TypeType  = {
+export type TypeType = {
   id: string | number // string兼容'all'
   name?: string
   type?: number
@@ -51,4 +51,18 @@ export type PerTypeData = {
   type_name: string
   pay_type: number
   number: number
+}
+// userInfo
+export type UserInfo = {
+  id: number
+  username: string
+  signature: string
+  avatar: string
+}
+
+// imgType
+export type ImgType = {
+  file: object
+  fileName: string
+  fileType: string
 }
