@@ -1,11 +1,12 @@
 import s from './style.module.less'
 import { List, Input, Button, Checkbox, Toast } from 'zarm'
-import {IconOrigin} from '@/components/CustomIcon'
+import { IconOrigin } from '@/components/CustomIcon'
 import Captcha from 'react-captcha-code'
 import { useCallback } from 'react'
 import { useState } from 'react'
 import { post } from '@/utils'
 import cl from 'classnames'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const [type, setType] = useState('login') // 页面类型 login or sign up
@@ -14,6 +15,9 @@ function Login() {
   const [password, setPassword] = useState('')
   const [vertify, setVertify] = useState('')
   const [captcha, setCaptcha] = useState('')
+  const [checked, setChecked] = useState(false) // 授权
+
+  const navigateTo = useNavigate()
   // 拿到图片验证码
   const handleChange = useCallback((captcha: string) => {
     console.log('captcha', captcha)
@@ -29,13 +33,20 @@ function Login() {
       Toast.show('请输入密码')
       return
     }
+    if (!checked) {
+      Toast.show('请同意')
+      return
+    }
     try {
       if (type == 'login') {
         const { data } = await post('/user/login', {
           username,
           password
         })
+        localStorage.removeItem('token')
         localStorage.setItem('token', data.token)
+        Toast.show('登录成功')
+        navigateTo('/')
         return
       } else {
         if (!vertify) {
@@ -55,7 +66,7 @@ function Login() {
         setType('login')
       }
     } catch (err) {
-      Toast.show('系统错误111')
+      Toast.show('系统错误')
     }
   }
   return (
@@ -103,7 +114,12 @@ function Login() {
       </div>
       <div className={s.operation}>
         <div className={s.agree}>
-          <Checkbox />
+          <Checkbox
+            checked={checked}
+            onChange={(e) => {
+              setChecked(true)
+            }}
+          />
           <label className="text-light">授权并同意</label>
         </div>
         <Button block theme="primary" size="lg" onClick={onSubmit}>

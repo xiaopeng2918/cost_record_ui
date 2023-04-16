@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import Home from '@/container/Home'
 import User from '@/container/User'
 import Data from '@/container/Data'
@@ -8,14 +8,13 @@ import Login from '@/container/Login'
 import UserInfo from '@/container/UserInfo'
 import Account from '@/container/Account'
 
-
 const routes = createBrowserRouter([
   {
     path: '/',
     element: <NavBar />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <Home />
       },
       {

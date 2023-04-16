@@ -99,10 +99,10 @@ function Home() {
         <div className={s.header}>
           <div className={s.dataWrap}>
             <span className={s.expense}>
-              总支出：<b>¥ {totalExpense}</b>
+              本月总支出：<b>¥ {totalExpense}</b>
             </span>
             <span className={s.income}>
-              总收入：<b>¥ {totalIncome}</b>
+              本月总收入：<b>¥ {totalIncome}</b>
             </span>
           </div>
           <div className={s.typeWrap}>

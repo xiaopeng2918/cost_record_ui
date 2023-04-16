@@ -3,25 +3,28 @@ import { useState, useEffect } from 'react'
 import { get } from '@/utils'
 import { UserInfo } from '@/typings/global'
 import { useNavigate } from 'react-router-dom'
-import { List } from 'zarm'
+import { List, Button } from 'zarm'
 import { MyIcon } from '@/components/CustomIcon'
-
 
 const User = () => {
   const [user, setUser] = useState<UserInfo>()
   const [avatar, setAvatar] = useState()
 
-
   const navigateTo = useNavigate()
 
   useEffect(() => {
     getUserInfo()
-  },[])
+  }, [])
 
   const getUserInfo = async () => {
-    const {data} = await get('/user/get_userinfo')
+    const { data } = await get('/user/get_userinfo')
     setUser(data)
     setAvatar(data.avatar)
+  }
+  // 退出登录
+  const logout = async () => {
+    localStorage.removeItem('token')
+    navigateTo('/login')
   }
 
   return (
@@ -54,14 +57,17 @@ const User = () => {
             onClick={() => navigateTo('/account')}
             prefix={<MyIcon type="icon-reset" />}
           />
-          <List.Item
+          {/* <List.Item
             hasArrow
             title="关于我们"
             onClick={() => navigateTo('/about')}
             prefix={<MyIcon type="icon-about" />}
-          />
+          /> */}
         </List>
       </div>
+      <Button className={s.logout} block theme="danger" onClick={logout}>
+        退出登录
+      </Button>
     </div>
   )
 }
