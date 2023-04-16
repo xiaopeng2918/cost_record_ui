@@ -11,6 +11,7 @@ const User = () => {
   const [user, setUser] = useState<UserInfo>()
   const [avatar, setAvatar] = useState()
 
+
   const navigateTo = useNavigate()
 
   useEffect(() => {

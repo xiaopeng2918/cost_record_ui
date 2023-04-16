@@ -21,6 +21,7 @@
     "react-captcha-code": "^1.0.7",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.10.0",
+    "yup": "^1.1.1",
     "zarm": "^3.0.11"
   },
   "devDependencies": {

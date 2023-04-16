@@ -1,6 +1,3 @@
-import BillItem from '@/components/BillItem'
-declare module 'zarm/lib/config-provider/locale/zh_CN'
-
 // 单个bill
 type BillType = {
   amount: string
