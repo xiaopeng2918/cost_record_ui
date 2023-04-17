@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'vite-h5',
-      script: 'vite-h5-server.js'
+      script: 'vite-h5-server.cjs'
     }
   ],
   deploy: {
