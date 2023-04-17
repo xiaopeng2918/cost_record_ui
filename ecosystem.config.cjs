@@ -13,7 +13,7 @@ module.exports = {
       repo: 'git@github.com:xiaopeng2918/record_cost_ui.git',
       path: '/project/cost_record/juejue-vite-h5',
       'post-deploy':
-        'git reset --hard && git checkout master && git pull && npm i --production=false && npm run build:release && pm2 startOrReload ecosystem.config.js', // -production=false 下载全量包
+        'git reset --hard && git checkout master && git pull && npm i --force --production=false && npm run build:release && pm2 startOrReload ecosystem.config.js', // -production=false 下载全量包
       env: {
         NODE_ENV: 'production'
       }
