@@ -48,7 +48,7 @@ const PopupType = forwardRef((props: Props, ref) => {
   )
   // 选择类型回调
   const choseType = (item: TypeType) => {
-    setActive(item.id)
+    setActive(item.id as string)
     setShow(false)
     // 父组件传入的 onSelect，为了获取类型
     props.onSelect(item)
