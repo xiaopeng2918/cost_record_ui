@@ -20,12 +20,14 @@
 ```
 npm run i
 ```
-
+啊吊袜带阿瓦达我的哇发我挖坟我挖坟啊
 ```
-npm run dev
+npm run dev 
 ```
-
+ 
 ### 效果演示  
 
-啊啊啊
+啊啊啊   
 ![](https://yxp2918-1304563104.cos.ap-chongqing.myqcloud.com/blog-pictures/cost_record.gif)
+
+![](https://yxp2918-1304563104.cos.ap-chongqing.myqcloud.com/blog-pictures/test.gif)
