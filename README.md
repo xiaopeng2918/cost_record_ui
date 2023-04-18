@@ -28,5 +28,4 @@ npm run dev
 ### 效果演示  
 
 
-啊啊啊啊
-![alt 效果演示](https://yxp2918-1304563104.cos.ap-chongqing.myqcloud.com/blog-pictures/cost_record.gif)
+![](https://yxp2918-1304563104.cos.ap-chongqing.myqcloud.com/blog-pictures/cost_record.gif)
