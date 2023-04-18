@@ -27,7 +27,5 @@ npm run dev
  
 ### 效果演示  
 
-啊啊啊   
+由于gif大小有限制，故每秒采样两次录取，成了自动播放的PPT了。就看下效果吧
 ![](https://yxp2918-1304563104.cos.ap-chongqing.myqcloud.com/blog-pictures/cost_record.gif)
-
-![](https://yxp2918-1304563104.cos.ap-chongqing.myqcloud.com/blog-pictures/test.gif)
