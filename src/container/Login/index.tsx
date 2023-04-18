@@ -84,17 +84,17 @@ function Login() {
         <List>
           <List.Item prefix={<IconOrigin type="zhanghao" />}>
             <Input
-              clearable
               type="text"
               placeholder="请输入账号"
+              value={username}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value as string)}
             />
           </List.Item>
           <List.Item prefix={<IconOrigin type="mima" />}>
             <Input
-              clearable
               type="password"
               placeholder="请输入密码"
+              value={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value as string)}
             />
           </List.Item>
@@ -102,7 +102,6 @@ function Login() {
           {type == 'register' && (
             <List.Item prefix={<IconOrigin type="mima" />}>
               <Input
-                clearable
                 type="text"
                 placeholder="请输入验证码"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setVertify(e.target.value as string)}
